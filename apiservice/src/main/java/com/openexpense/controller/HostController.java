@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/host")
 public class HostController {
 
-    /**用户登录
+    /**用户登录 /signin/{id}/{pass}
     *@param id string 用户id
     *@param pass string 密码
     *@return id + pass
@@ -26,7 +26,7 @@ public class HostController {
         return id+","+pass;
     }
 
-    /**用户注销
+    /**用户注销 /signout
     *@return "hello"
     */
     @ResponseBody
