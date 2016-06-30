@@ -46,7 +46,7 @@ dependencies {
 }
 
 javadoc {
-    source = [sourceSets.main.allJava] //需要生成javadoc的源码包 
+    source = [sourceSets.main.allJava,sourceSets.test.allJava] //需要生成javadoc的源码包 
     classpath=configurations.testCompile
     options {
         encoding "UTF-8"
