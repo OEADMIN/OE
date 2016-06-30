@@ -1,0 +1,32 @@
+.search-modal{
+	position: fixed;
+	&.normal{position: static;}
+	height: 100%;
+	width: 100%;
+	top: 0;left: 0;
+	background-color: #F5F5F5;
+	z-index: 999;
+	.serch-row{
+		background-color: #fff;
+		padding:.12rem 0;
+		font-size: .14rem;
+		.input{
+			.anticon-search{
+				position: absolute;
+				left: .34rem;
+				top:.12rem;
+			}
+			input{
+				border:none;
+				outline: none;
+				color:#999;
+				background-color:#F6F6F6;
+				display: block;
+				width: 100%;
+				padding: .08rem 0 .08rem .34rem;
+				border-radius:0.06rem;
+				&:focus{outline: none;border:none;}
+			}
+		}
+	}
+}
