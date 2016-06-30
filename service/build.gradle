@@ -1,0 +1,67 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: "jetty" 
+version = 0.1
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = '4.2.4.RELEASE'
+    servlet = '3.0.1'
+   	jackson = '2.7.4'
+    log4j = '1.2.17'
+    slf4j = '1.7.6'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+dependencies {
+    compile group:'org.springframework',name:'spring-core',version:springVersion
+    compile group:'org.springframework',name:'spring-web',version:springVersion
+    compile group:'org.springframework',name:'spring-oxm',version:springVersion
+    compile group:'org.springframework',name:'spring-tx',version:springVersion
+    compile group:'org.springframework',name:'spring-webmvc',version:springVersion
+    compile group:'org.springframework',name:'spring-aop',version:springVersion
+    compile group:'org.springframework',name:'spring-context-support',version:springVersion
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: servlet
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson
+    compile group:'log4j',name:'log4j',version:log4j
+    compile group:'org.slf4j',name:'slf4j-api',version: slf4j
+    compile group:'org.slf4j',name:'slf4j-log4j12',version: slf4j
+
+    testCompile group:'org.springframework',name:'spring-test',version:springVersion
+    testCompile group:'org.springframework',name:'spring-core',version:springVersion
+    testCompile group:'org.springframework',name:'spring-web',version:springVersion
+    testCompile group:'org.springframework',name:'spring-oxm',version:springVersion
+    testCompile group:'org.springframework',name:'spring-tx',version:springVersion
+    testCompile group:'org.springframework',name:'spring-webmvc',version:springVersion
+    testCompile group:'org.springframework',name:'spring-aop',version:springVersion
+    testCompile group:'org.springframework',name:'spring-context-support',version:springVersion
+    testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: servlet
+    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson
+    testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson
+    testCompile 'junit:junit:4.11'
+}
+sourceSets{
+    main {
+        java {
+            srcDirs = ['src/main']
+        }
+    }
+    test{
+        java{
+            srcDirs = ['src/test']
+        }
+    }
+}
+
+
+jettyRun {
+    reload ="automatic"
+    scanIntervalSeconds = 1
+    httpPort = 10086
+    contextPath = 'openexpense'
+}
+
