@@ -1,0 +1,62 @@
+@color-red:#fd5a6e;
+.da-btn-group{
+	display: inline-block;
+	font-size: .14rem;
+	.btn{
+		padding:.045rem .22rem;
+		display: inline-block;
+		background-color: #fff;
+		color:@color-red;
+		border-top:1px solid @color-red;
+		border-bottom:1px solid @color-red;
+		&.active{
+			background-color: @color-red;
+			color: #fff;
+		}
+		&:nth-child(1) {border-radius: .16rem 0 0 .16rem;border-left:1px solid @color-red;}
+		&:last-child {border-radius: 0 .16rem .16rem 0;border-right:1px solid @color-red;}
+
+	}
+}
+
+.btn-primary{
+	display: inline-block;
+	border-radius: .05rem;
+	font-size: .15rem;
+	padding:.04rem .06rem;
+	background-color: @color-red;
+	color:#fff;
+	&.p-15{
+		padding:.04rem .15rem;
+	}
+}
+.dada-menu{
+	background-color: #fff;
+	padding:0 .15rem;
+	.row{
+		.logo{padding-top: .09rem;}
+		.content{padding:.095rem 0;}
+		&:last-child{
+			.border-bottom{border-bottom: none !important;}
+		}
+	}
+	&:last-child{margin-bottom: .12rem;}
+
+}
+.line-height{padding:.25rem;}
+
+.text-overflow-ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.absolute-center{
+	position: absolute;
+	top:50%;
+	transform:translateY(-50%);
+	right: 0;
+}
+
+.ant-message{
+	top:49%;
+}

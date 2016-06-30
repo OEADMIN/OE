@@ -1,0 +1,56 @@
+@import '../../resource/css/lib.less';
+.cs-component-widget-fixedmodal{
+    .cs-cwfm-mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: #373737;
+        background-color: rgba(55, 55, 55, 0.6);
+        height: 100%;
+        z-index: 990;
+        filter: alpha(opacity=50);
+    }
+    .cs-cwfm-mask-hidden {
+        display: none;
+    }
+    .cs-cwfm {
+        outline: none;
+        position: fixed;
+        z-index: 1000;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+    }
+    .cs-cwfm-hidden {
+        display: none;
+    }
+    .cs-cwfm-content {
+        position: relative;
+        background-color: #fff;
+        border: 0;
+        background-clip: padding-box;
+        outline: 0;
+    }
+    .cs-cwfm-header {
+        padding: 13px 20px 14px 20px;
+        border-radius: 6px 6px 0 0;
+        background: #fff;
+        color: #666;
+        border-bottom: 1px solid #e9e9e9;
+    }
+
+    .cs-cwfm-body {
+        // padding: 8px 20px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .cs-cwfm-footer {
+        border-top: 1px solid #e9e9e9;
+        padding: 8px 20px 16px 10px;
+        text-align: right;
+        border-radius: 0 0 6px 6px;
+    }
+}
