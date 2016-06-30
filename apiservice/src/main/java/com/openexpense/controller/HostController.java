@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HostController {
 
     /**用户登录
-    *@param id type:string 用户id
-    *@param pass type:string 密码
+    *@param id string 用户id
+    *@param pass string 密码
     *@return id + pass
     */
     @ResponseBody
