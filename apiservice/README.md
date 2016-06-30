@@ -1,6 +1,3 @@
-
-
-
 # api service
 build by gradle,use junit,springmvc,mybatis,groovy
 
