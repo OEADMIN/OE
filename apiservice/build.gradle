@@ -44,6 +44,19 @@ dependencies {
     testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson
     testCompile 'junit:junit:4.11'
 }
+
+javadoc {
+    source = [sourceSets.main.allJava] //需要生成javadoc的源码包 
+    classpath=configurations.testCompile
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+
 sourceSets{
     main {
         java {
