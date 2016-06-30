@@ -1,2 +1,3 @@
-* front 前端项目文件
-* service 后台文件
+* **front**   项目前端文件
+* service 项目后端文件
+* DOC 说明文档
