@@ -3,13 +3,8 @@ import {bindActionCreators } from 'redux';
 import {connect } from 'react-redux';
 import {pushPath } from 'redux-simple-router';
 import {Router, Route, Link } from 'react-router';
-
 import { post_async,get_async} from '../../actions/common';
-
-
 import './index.less';
-
-
 let Spa = React.createClass({
     getInitialState:function(){
         return {
