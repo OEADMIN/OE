@@ -1,7 +1,7 @@
 {
-  "name": "duobao",
+  "name": "OE",
   "version": "1.0.0",
-  "description": "duobao",
+  "description": "OEFRONT",
   "scripts": {
     "start": "node server.js",
     "test": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register --require ./test/setup.js",

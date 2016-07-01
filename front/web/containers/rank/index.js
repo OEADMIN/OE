@@ -9,7 +9,6 @@ import { post_async,get_async} from '../../actions/common';
 
 import './index.less';
 
-import Footer from '../../components/footer';
 
 let Spa = React.createClass({
     getInitialState:function(){

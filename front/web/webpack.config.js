@@ -57,6 +57,12 @@ module.exports = {
       loaders: [ 'style', 'css','less' ],
       include: __dirname
     },
+    // sass
+    ,{
+      test: /\.scss$/,
+      loaders: [ 'style', 'css','scss' ],
+      include: __dirname
+    },
     {
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
         exclude: /node_modules/,
