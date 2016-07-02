@@ -2,7 +2,7 @@
 
 ###安装
 * node [下载地址](https://nodejs.org/en/download/ )
-* node安装成功之后 下载依赖包 <code>npm install</code>
+* node安装成功之后 下载依赖包（在项目根目录下运行） <code>npm install</code>
 
 ###运行步骤
 * 运行 <code>node service.js</code>
