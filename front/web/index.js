@@ -45,9 +45,9 @@ let App = React.createClass({
                                         cb(null, require('./containers/spa'))
                                     })
                               }}>
-                                <Route path="rank/index" getComponents={(location, cb) => {
+                                <Route path="page/index" getComponents={(location, cb) => {
                                     require.ensure([], function (require) {
-                                        cb(null, {content: require('./containers/rank/index')})
+                                        cb(null, {content: require('./containers/page/index')})
                                     })
                                 }}/>
                            </Route>

@@ -1,18 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import queryString from 'query-string';
-import {pushPath } from 'redux-simple-router';
 
-export const error_code={
-    "101":"API参数错误",
-    "2001":"MODEL参数错误",
-    "2101":"错误 - 当前夺宝不在进行中",
-    "2102":"错误 - 当前夺宝参与数量不足",
-    "2103":"错误 - 最新的时时彩还没有开奖",
-    "2104":"错误 - 随机抽奖码列表已经生成",
-    "2105":"错误 - 当前夺宝不在满人次状态",
-    "2106":"错误 - 账户余额不足",
-    "2201":"错误 - 晒单长度错误",
-};
 const base_url = "";
 
 export function post_async(url,params,callback){
