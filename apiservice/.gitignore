@@ -4,3 +4,4 @@
 !/build/docs/
 /logs/
 /sql/*
+jdbc.properties
