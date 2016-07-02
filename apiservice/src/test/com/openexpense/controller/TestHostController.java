@@ -13,12 +13,21 @@ import static org.junit.Assert.assertEquals;
  *@author xjouyi@163.com
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath*:config/spring.xml","classpath*:/config/spring-mvc.xml"})
+@ContextConfiguration({"classpath*:config/spring.xml",
+"classpath*:/config/spring-mvc.xml",
+"classpath*:/config/spring-mybatis.xml"})
 public class TestHostController {
 
     @Autowired
     HostController hostController;
 
+
+    /**用户注销测试
+     */
+    @Test
+    public void signIn() {
+        assertEquals("XJouYi",hostController.signIn("xjouyi","123")) ;
+    }
     /**用户注销测试
     */
     @Test

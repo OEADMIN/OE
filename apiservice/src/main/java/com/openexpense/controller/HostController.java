@@ -1,5 +1,7 @@
 package com.openexpense.controller;
 
+import com.openexpense.domain.UserDomain;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/host")
 public class HostController {
 
+    @Autowired
+    UserDomain  userDomain;
+
     /**用户登录 /signin/{id}/{pass}
     *@param id string 用户id
     *@param pass string 密码
@@ -23,7 +28,7 @@ public class HostController {
     @ResponseBody
     @RequestMapping(value = "/signin/{id}/{pass}",method = RequestMethod.GET)
     public String signIn(@PathVariable("id")String id,@PathVariable("pass")String pass){
-        return id+","+pass;
+        return userDomain.userLogin(id,pass);
     }
 
     /**用户注销 /signout
