@@ -6,7 +6,7 @@
 
 ###运行步骤
 * 运行 <code>node server.js</code>
-* 默认监听9999端口，打开浏览器输入localhost:9999/(*:languages*)/page/index 目前只支持中文，所以输入languages输入zh即可
+* 默认监听9999端口，打开浏览器输入localhost:9999/(*:languages*)/page/index 目前只支持中文，所以languages输入zh即可
 
 
 ##目录结构
