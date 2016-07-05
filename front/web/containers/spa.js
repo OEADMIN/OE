@@ -1,5 +1,4 @@
-import React, {Component, PropTypes } from 'react';
-import {bindActionCreators } from 'redux';
+import React from 'react';
 import {connect } from 'react-redux';
 import {pushPath } from 'redux-simple-router';
 
@@ -19,11 +18,8 @@ let Spa = React.createClass({
         let {dispatch, content, path } = this.props;
         let {result}=this.state;
         return (
-                    <div className="cs-page-dash">
-                        <div className="cs-main cs-spa-main">
-                        
-                            {content}
-                        </div>
+                    <div className="p-login">
+                        登陆
                     </div>
                 )
     }
