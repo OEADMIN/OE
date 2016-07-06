@@ -24,13 +24,13 @@ public class TestHostController {
 
 
     /**用户登录测试</br>
-     * xjouyi/                          {fail H001  用户名密码不能为空}</br>
-     * /                                {fail H001  用户名密码不能为空}</br>
-     * /123                             {fail H001  用户名密码不能为空}</br>
-     * xjouyi/123                       {fail H002  用户名格式错误}</br>
-     * xjouyi@openexpense.com/123456    {fail H003  密码错误}</br>
-     * xjouyi@baidu.com/123             {fail C001  企业不存在}</br>
-     * xjouyi@openexpense.com/123       {success  成功} </br>
+     * xjouyi/                          {fail H001  用户名密码不能为空}
+     * /                                {fail H001  用户名密码不能为空}
+     * /123                             {fail H001  用户名密码不能为空}
+     * xjouyi/123                       {fail H002  用户名格式错误}
+     * xjouyi@openexpense.com/123456    {fail H003  密码错误}
+     * xjouyi@baidu.com/123             {fail C001  企业不存在}
+     * xjouyi@openexpense.com/123       {success  成功}
      */
     @Test
     public void signIn() {
