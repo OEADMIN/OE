@@ -36,7 +36,7 @@ app.use("/",express.static(__dirname + '/html'));
 /**
  * support spa
  */
-app.use("/spa", function(req, res) {
+app.use("/(:languages)", function(req, res) {
     res.sendFile(__dirname + '/index.html')
 })
 /**

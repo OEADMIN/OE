@@ -1,12 +1,11 @@
 import 'babel-core/polyfill'
-import React, {PropTypes, Component } from 'react'
+import React from 'react'
 import {render } from 'react-dom'
 import {Provider } from 'react-redux'
-import {Router, Route,IndexRoute } from 'react-router'
+import {Router, Route } from 'react-router'
 import {createHistory}  from 'history'
-import {syncReduxAndRouter, routeReducer } from 'redux-simple-router'
+import {syncReduxAndRouter } from 'redux-simple-router'
 import {DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
-import {isLogin} from './actions/common';
 
 /**
  * 应用的store和action
@@ -37,17 +36,26 @@ syncReduxAndRouter(history, store)
  */
 let App = React.createClass({
     render: function () {
+        //多语言文件通过路由来控制请求哪个语种
+        let language = location.pathname.split('/')[1];
         return (<div>
                     <Provider store={store}>
                         <Router history={history}>
-                            <Route path="/spa" getComponent={(location, cb) => {
+                            <Route path="/(:languages)" getComponent={(location, cb) => {
                                     require.ensure([], function (require) {
                                         cb(null, require('./containers/spa'))
                                     })
                               }}>
-                                <Route path="page/index" getComponents={(location, cb) => {
+                                <Route path="login" getComponents={(location, cb) => {
+                                    //登陆router
                                     require.ensure([], function (require) {
-                                        cb(null, {content: require('./containers/page/index')})
+                                        cb(null, {content: require('./containers/'+language+'/login/login')})
+                                    })
+                                }}/>
+                                <Route path="page/index" getComponents={(location, cb) => {
+                                    //首页router
+                                    require.ensure([], function (require) {
+                                        cb(null, {content: require('./containers/'+language+'/page/index')})
                                     })
                                 }}/>
                            </Route>

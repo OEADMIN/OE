@@ -1,10 +1,9 @@
-import React, {Component, PropTypes } from 'react';
-import {bindActionCreators } from 'redux';
+import React from 'react';
 import {connect } from 'react-redux';
 import {pushPath } from 'redux-simple-router';
-import {Router, Route, Link } from 'react-router';
-import { post_async,get_async} from '../../actions/common';
-import './index.less';
+import {Link } from 'react-router';
+import { post_async,get_async} from '../../../actions/common';
+import './login.less';
 let Spa = React.createClass({
     getInitialState:function(){
         return {
