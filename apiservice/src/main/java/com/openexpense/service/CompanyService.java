@@ -30,6 +30,7 @@ public interface CompanyService {
     /**根据企业域和企业状态获取企业
      * @param domain 企业域 如:openexpence.com
      * @param type CompanyService.Type 企业状态
+     * @return Company对象
      */
     Company getCompanyByDomain(String domain,CompanyService.Type type) throws OeCompanyException;
 }
