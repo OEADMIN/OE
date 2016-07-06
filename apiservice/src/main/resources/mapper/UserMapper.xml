@@ -5,4 +5,8 @@
     <select id="queryOne" resultType="com.openexpense.model.User">
         SELECT * FROM oe_user WHERE user_id = #{userid}
     </select>
+
+    <select id="queryOneCompanyUser" resultType="com.openexpense.model.User">
+        SELECT * from oe_user where company_id = #{company_id} and user_code = #{user_code}
+    </select>
 </mapper>

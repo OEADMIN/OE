@@ -1,1 +1,9 @@
+com.openexpense.common
 com.openexpense.controller
+com.openexpense.dao
+com.openexpense.domain
+com.openexpense.dto
+com.openexpense.exception
+com.openexpense.model
+com.openexpense.service
+com.openexpense.service.impl
