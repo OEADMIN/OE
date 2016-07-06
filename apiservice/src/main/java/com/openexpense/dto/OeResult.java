@@ -17,11 +17,11 @@ public class OeResult {
      */
     public enum Type {
         /**成功 success*/
-        Success("success"),
+        success("success"),
         /**失败 fail*/
-        Fail("fail"),
+        fail("fail"),
         /**异常 error*/
-        Error("error");
+        error("error");
         private String name;
         Type(String name) {
             this.name = name;
@@ -81,7 +81,7 @@ public class OeResult {
      *@return OeResult 返回成功对象,{type:success,data:[{}]}
      */
     public static OeResult getSuccessResult(Object result){
-        OeResult oeResult = new OeResult(Type.Success);
+        OeResult oeResult = new OeResult(Type.success);
         oeResult.data = new ArrayList<>();
         oeResult.data.add(result);
         return oeResult;
@@ -92,7 +92,7 @@ public class OeResult {
      *@return OeResult 返回失败对象,{type:success,code:xxxx}
      */
     public static OeResult getFailResult(String code){
-        return new OeResult(Type.Fail,code);
+        return new OeResult(Type.fail,code);
     }
 
     /**获取返回错误对象
@@ -100,7 +100,7 @@ public class OeResult {
      *@return OeResult 返回错误对象,{type:success,code:xxxx}
      */
     public static OeResult getErrorResult(String code){
-        return new OeResult(Type.Error,code);
+        return new OeResult(Type.error,code);
     }
 
 }
