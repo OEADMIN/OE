@@ -5,7 +5,7 @@ var config = require('./webpack.config')
 
 var express = require('express')
 var proxy = require('express-http-proxy');
-
+var router = express.Router();
 /**
  * server base-on express
  */
@@ -42,9 +42,30 @@ app.use("/(:languages)", function(req, res) {
 /**
  * html route
  */
-app.get(/.*/,function(req,res){
-    var path = req.path.replace(/^\//,'') ||"home";
-    //res.render(path,{"path":path});
+// router.route(/api\/*\/*/)
+// .all(function(req, res, next) {
+//   // runs for all HTTP verbs first
+//   // think of it as route specific middleware!
+//   next();
+// })
+// .get(function(req, res, next) {
+//   res.json(req.user);
+// })
+// .put(function(req, res, next) {
+//   // just an example of maybe updating the user
+//   req.user.name = req.params.name;
+//   // save user ... etc
+//   res.json(req.user);
+// })
+// .post(function(req, res, next) {
+// 	console.log(req);
+//   next(new Error('not implemented'));
+// })
+// .delete(function(req, res, next) {
+//   next(new Error('not implemented'));
+// })
+app.post("/api/getuser",function(req,res){
+	res.send({success:1})
 })
 /**
  * start server
