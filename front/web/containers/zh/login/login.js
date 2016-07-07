@@ -15,7 +15,7 @@ let Spa = React.createClass({
 
     _ajax_member:function(){
         let {dispatch} = this.props;
-        post_async('/api/getuser',{name:"jayie"},function(val){
+        post_async('/api/user/getuser',{name:"jayie"},function(val){
             console.log(val);
         })
     },

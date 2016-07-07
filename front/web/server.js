@@ -36,36 +36,21 @@ app.use("/",express.static(__dirname + '/html'));
 /**
  * support spa
  */
-app.use("/(:languages)", function(req, res) {
+app.use(/\/zh|\/en/, function(req, res) {
     res.sendFile(__dirname + '/index.html')
 })
-/**
- * html route
- */
-// router.route(/api\/*\/*/)
-// .all(function(req, res, next) {
-//   // runs for all HTTP verbs first
-//   // think of it as route specific middleware!
-//   next();
-// })
-// .get(function(req, res, next) {
-//   res.json(req.user);
-// })
-// .put(function(req, res, next) {
-//   // just an example of maybe updating the user
-//   req.user.name = req.params.name;
-//   // save user ... etc
-//   res.json(req.user);
-// })
-// .post(function(req, res, next) {
-// 	console.log(req);
-//   next(new Error('not implemented'));
-// })
-// .delete(function(req, res, next) {
-//   next(new Error('not implemented'));
-// })
-app.post("/api/getuser",function(req,res){
-	res.send({success:1})
+
+app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.post(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.delete(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.put(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
 })
 /**
  * start server
