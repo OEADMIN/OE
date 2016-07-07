@@ -5,7 +5,7 @@ var config = require('./webpack.config')
 
 var express = require('express')
 var proxy = require('express-http-proxy');
-
+var router = express.Router();
 /**
  * server base-on express
  */
@@ -36,15 +36,21 @@ app.use("/",express.static(__dirname + '/html'));
 /**
  * support spa
  */
-app.use("/(:languages)", function(req, res) {
+app.use(/\/zh|\/en/, function(req, res) {
     res.sendFile(__dirname + '/index.html')
 })
-/**
- * html route
- */
-app.get(/.*/,function(req,res){
-    var path = req.path.replace(/^\//,'') ||"home";
-    //res.render(path,{"path":path});
+
+app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.post(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.delete(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
+})
+app.put(/^\/api(\/[a-zA-Z+])+/,function(req,res){
+	res.send({success:1});
 })
 /**
  * start server

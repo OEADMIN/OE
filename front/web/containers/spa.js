@@ -19,7 +19,7 @@ let Spa = React.createClass({
         let {result}=this.state;
         return (
                     <div className="p-login">
-                        登陆
+                        {content}
                     </div>
                 )
     }

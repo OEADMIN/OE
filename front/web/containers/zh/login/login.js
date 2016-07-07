@@ -10,9 +10,14 @@ let Spa = React.createClass({
         }
     },
     componentWillMount:function(){
+        this._ajax_member();
     },
 
     _ajax_member:function(){
+        let {dispatch} = this.props;
+        post_async('/api/user/getuser',{name:"jayie"},function(val){
+            console.log(val);
+        })
     },
 
     render: function() {

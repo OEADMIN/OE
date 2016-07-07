@@ -3,37 +3,26 @@ import fetch from 'isomorphic-fetch';
 const base_url = "";
 
 export function post_async(url,params,callback){
-    let ajax_url = '';
-    if(/^http/.test(url)){
-        ajax_url = url
-    }else{
-        ajax_url = base_url+ url;
-    }
-
-    if(params && typeof(params)!=="string"){
-        params=queryString.stringify(params);
-    }
-
-    return dispatch => {
-        return fetch(ajax_url,{
-                        method: "POST",
-                        credentials: 'include',//跨域访问
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: params
-                    })
-                    .then(response => response.json())
-                    .then(function(json){
-                        callback(json)
-                    })
-                    .catch(function(ex) {
-                        callback({
-                            s:0,
-                            m:ex.toString()
-                        })
-                    })
-    }
+    let ajax_url = base_url+ url;
+    console.log(url,params);
+    fetch(ajax_url,{
+        method: "POST",
+        credentials: 'include',//跨域访问
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: params
+    })
+    .then(response => response.json())
+    .then(function(json){
+        callback(json)
+    })
+    .catch(function(ex) {
+        callback({
+            s:0,
+            m:ex.toString()
+        })
+    })
 }
 
 export function get_async(url,params,callback){

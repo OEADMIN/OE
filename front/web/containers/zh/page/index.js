@@ -18,7 +18,7 @@ let Spa = React.createClass({
     render: function() {
         let _this = this;
 	return (
-	 <div>hello!</div>
+	   <a href="#/zh/login">hello!</a>
 	)
     }
 });
