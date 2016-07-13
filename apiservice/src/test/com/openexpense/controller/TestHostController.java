@@ -65,6 +65,14 @@ public class TestHostController {
     */
     @Test
     public void signOut() {
+        for(int a = 0;a < 10;a++){
+           try{
+               System.out.println(a);
+               throw new Exception("11");
+           }catch (Exception e){
+               continue;
+           }
+        }
         assertEquals("hello",hostController.signOut()) ;
     }
 }
