@@ -2,6 +2,7 @@ var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require('./webpack.config')
+var httpRequest = require('./http');
 
 var express = require('express')
 var proxy = require('express-http-proxy');
@@ -41,16 +42,16 @@ app.use(/\/zh|\/en/, function(req, res) {
 })
 
 app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-	res.send({success:1});
+    res.send({success:1});
 })
 app.post(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-	res.send({success:1});
+    res.send({success:1});
 })
 app.delete(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-	res.send({success:1});
+    res.send({success:1});
 })
 app.put(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-	res.send({success:1});
+    res.send({success:1});
 })
 /**
  * start server

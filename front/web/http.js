@@ -1,42 +1,32 @@
 var request = require('request');
+var host_connection = "http://114.215.80.196:8080/openexpense/";
 
-function HttpRequest(url,data,callback){
-	callback      = typeof data === "object"?data:callback;
-	this.callback = callback || function;
-	this.url      = url;
-	this.data     = data;
-}
-
-HttpRequest.prototype.get = function(){
-	var _this = this;
+module.exports.get = function(url,params,callback){
 	request.get({
-		url:"http://114.215.80.196:8080/openexpense/"+this.url,
+		url:host_connection+url,
 	},function(error, response, body){
-		this.callback(response);
+		callback(response);
 	});
 }
 
-HttpRequest.prototype.post = function(){
-	var _this = this;
+module.exports.post = function(url,params,callback){
 	request.post({
-		url:"http://114.215.80.196:8080/openexpense/"+this.url,
+		url:host_connection+url,
 	},function(error, response, body){
-		this.callback(response);
+		callback(response);
 	});
 }
-HttpRequest.prototype.put = function(){
-	var _this = this;
+module.exports.put = function(url,params,callback){
 	request.put({
-		url:"http://114.215.80.196:8080/openexpense/"+this.url,
+		url:host_connection+url,
 	},function(error, response, body){
-		this.callback(response);
+		callback(response);
 	});
 }
-HttpRequest.prototype.delete = function(){
-	var _this = this;
-	request.put({
-		url:"http://114.215.80.196:8080/openexpense/"+this.url,
+module.exports.delete = function(url,params,callback){
+	request.delete({
+		url:host_connection+this.url,
 	},function(error, response, body){
-		this.callback(response);
+		callback(response);
 	});
 }
