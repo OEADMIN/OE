@@ -5,10 +5,7 @@ import com.openexpense.domain.UserDomain;
 import com.openexpense.dto.OeResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**用户登录接口
  *2016/06/30.
@@ -33,15 +30,15 @@ public class HostController {
     @ResponseBody
     @RequestMapping(value = "/signin/{logincode}/{pass}",method = RequestMethod.GET)
     public OeResult signIn(@PathVariable("logincode")String logincode, @PathVariable("pass")String pass){
-        return hostDomain.userLogin(logincode,pass);
+        return hostDomain.userSignin(logincode,pass);
     }
 
     /**用户注销 /signout
     *@return "hello"
     */
     @ResponseBody
-    @RequestMapping(value = "/signout",method = RequestMethod.GET)
-    public String signOut(){
-        return "hello";
+    @RequestMapping(value = "/signout",method = RequestMethod.DELETE)
+    public OeResult signOut(@RequestParam(value = "id") String id){
+        return hostDomain.userSignOut(id);
     }
 }

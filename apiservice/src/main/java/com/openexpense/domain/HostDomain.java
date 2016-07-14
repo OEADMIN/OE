@@ -39,7 +39,7 @@ public class HostDomain {
      *@return OeResult 返回登录信息
      * @see com.openexpense.dto.OeResult
      */
-    public OeResult userLogin(String logincode, String pass){
+    public OeResult userSignin(String logincode, String pass){
         try {
             if (StringUtils.isEmpty(logincode) || StringUtils.isEmpty(pass)){
                 throw new OeHostException(OeHostException.Type.HOST_USER_PASS_NULL);
@@ -59,5 +59,10 @@ public class HostDomain {
         } catch (OeException e) {
             return e.getResult();
         }
+    }
+
+    public OeResult userSignOut(String sessionid){
+        sessionService.removeSession(sessionid);
+        return OeResult.getSuccessResult(null);
     }
 }

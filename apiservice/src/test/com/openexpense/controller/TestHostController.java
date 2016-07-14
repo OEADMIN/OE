@@ -1,6 +1,7 @@
 package com.openexpense.controller;
 
 import com.openexpense.dto.OeResult;
+import com.openexpense.model.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,14 +66,12 @@ public class TestHostController {
     */
     @Test
     public void signOut() {
-        for(int a = 0;a < 10;a++){
-           try{
-               System.out.println(a);
-               throw new Exception("11");
-           }catch (Exception e){
-               continue;
-           }
-        }
-        assertEquals("hello",hostController.signOut()) ;
+        OeResult oeResultSuccess = hostController.signIn("xjouyi@openexpense.com","123");
+        assertEquals("success",oeResultSuccess.getType().getName());
+        Session session = (Session) oeResultSuccess.getData().get(0);
+
+        System.out.println(session.getSessionid());
+        OeResult oeResultOut = hostController.signOut(session.getSessionid());
+        assertEquals("success",oeResultOut.getType().getName()) ;
     }
 }

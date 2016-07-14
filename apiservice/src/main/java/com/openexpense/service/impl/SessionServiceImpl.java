@@ -41,4 +41,11 @@ public class SessionServiceImpl implements SessionService{
         session.setLastdate(new Date(System.currentTimeMillis()));
         return session;
     }
+
+    /** @see com.openexpense.service.SessionService#removeSession(String) */
+    public void removeSession(String id) {
+        if (sessionTable.containsKey(id)){
+            sessionTable.remove(id);
+        }
+    }
 }

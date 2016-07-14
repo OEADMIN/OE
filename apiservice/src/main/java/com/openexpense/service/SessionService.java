@@ -23,4 +23,10 @@ public interface SessionService {
      * @see com.openexpense.model.Session
      */
     Session getSession(String id) throws OeSessionException;
+
+
+    /** 根据sessionid删除session
+     * @param id String sessionid
+     */
+    void removeSession(String id);
 }
