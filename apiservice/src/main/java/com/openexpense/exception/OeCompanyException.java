@@ -26,7 +26,11 @@ public class OeCompanyException extends OeException {
         /**企业不存在 C001*/
         COMPANY_NOT_FIND("C001"),
         /**企业状态错误 C002*/
-        COMPANY_STATE_ERROR("C002");
+        COMPANY_STATE_ERROR("C002"),
+        /**企业状态错误 C003*/
+        COMPANY_DOMAIN_NOT_NULL("C003"),
+        /**企业状态错误 C003*/
+        COMPANY_NAME_NOT_NULL("C004");
 
         private String name;
         Type(String name) {

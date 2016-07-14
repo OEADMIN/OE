@@ -43,6 +43,7 @@ dependencies {
     compile group:'org.slf4j',name:'slf4j-log4j12',version: slf4j
     compile group:'org.apache.commons',name:'commons-pool2',version:'2.2'
     compile group:'org.apache.commons',name:'commons-dbcp2',version:'2.0.1'
+    compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
 
 
     testCompile group:'org.springframework',name:'spring-test',version:springVersion
@@ -62,6 +63,7 @@ dependencies {
     testCompile group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
     testCompile group:'org.aspectj',name:'aspectjrt',version:aspectjVersion
     testCompile group:'org.aspectj',name:'aspectjweaver',version:aspectjVersion
+    testCompile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     testCompile 'junit:junit:4.11'
 }
 

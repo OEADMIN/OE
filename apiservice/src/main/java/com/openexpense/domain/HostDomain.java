@@ -2,6 +2,7 @@ package com.openexpense.domain;
 
 import com.openexpense.common.UiUtil;
 import com.openexpense.dto.OeResult;
+import com.openexpense.dto.SignUp;
 import com.openexpense.exception.OeException;
 import com.openexpense.exception.OeHostException;
 import com.openexpense.model.Company;
@@ -61,8 +62,24 @@ public class HostDomain {
         }
     }
 
+    /**用户注销
+     * @param sessionid string 用户sessionid
+     * @return  OeResult 返回注销是否成功
+     * @see com.openexpense.dto.OeResult
+     */
     public OeResult userSignOut(String sessionid){
         sessionService.removeSession(sessionid);
         return OeResult.getSuccessResult(null);
+    }
+
+
+
+    /**
+     * 企业注册并登录
+     * @param signUp SignUp 企业注册信息
+     * @return
+     */
+    public OeResult companySignUp(SignUp signUp){
+        return null;
     }
 }

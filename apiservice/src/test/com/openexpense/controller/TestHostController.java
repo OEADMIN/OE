@@ -2,19 +2,27 @@ package com.openexpense.controller;
 
 import com.openexpense.dto.OeResult;
 import com.openexpense.model.Session;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**用户登录接口单元测试
  *2016/06/30.
  *@author xjouyi@163.com
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration({"classpath*:config/spring.xml",
 "classpath*:/config/spring-mvc.xml",
 "classpath*:/config/spring-mybatis.xml"})
@@ -23,6 +31,14 @@ public class TestHostController {
     @Autowired
     HostController hostController;
 
+    @Autowired
+    WebApplicationContext wac;
+    MockMvc mockMvc;
+
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+    }
 
     /**用户登录测试</br>
      * xjouyi/                          {fail H001  用户名密码不能为空}
@@ -74,4 +90,12 @@ public class TestHostController {
         OeResult oeResultOut = hostController.signOut(session.getSessionid());
         assertEquals("success",oeResultOut.getType().getName()) ;
     }
+
+    @Test
+    public void signUp() throws Exception {
+        this.mockMvc.perform((put("/host/signup")))
+                .andDo(print());
+    }
+
+
 }
