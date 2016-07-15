@@ -42,8 +42,9 @@ app.use(/\/zh|\/en/, function(req, res) {
 })
 
 app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-    var url = req._parsedOriginalUrl.pathname;
+    var url = req._parsedOriginalUrl.path;
     url = url.substring(4,url.length)
+
     httpRequest.get(url,req.query,function(data){
         res.send(data);
     });

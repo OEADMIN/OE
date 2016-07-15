@@ -40,22 +40,26 @@ let Spa = React.createClass({
     	return (
     	   <div className="page-login">
                 <div className="form">
-                    <div className="header">OE SERVICE后台管理系统登录<span className="btn-registe">企业注册></span></div>
-                    <div className="content">
-                        <p>
-                            <input type="text" value={this.state.email} onChange={(ev)=>this.handleChg("email",ev)} placeholder="管理员邮箱"/>
-                        </p>
-                        <p>
-                            <input type="password" value={this.state.password} onChange={(ev)=>this.handleChg("password",ev)} placeholder="管理员密码"/>
-                        </p>
-                        {   
-                            error_msg?(
-                                <p className="error">error_msg</p>
-                                ):null
-                        }
-                        <p>
-                            <button className="btn-login" onClick={this.do_login}>登录</button>
-                        </p>
+                    <div className="form-box">  
+                        <form className="form-login">
+                            <div className="header">OE SERVICE后台管理系统登录<span className="btn-registe">企业注册></span></div>
+                            <div className="content">
+                                <p>
+                                    <input type="text" value={this.state.email} onChange={(ev)=>this.handleChg("email",ev)} placeholder="管理员邮箱"/>
+                                </p>
+                                <p>
+                                    <input type="password" value={this.state.password} onChange={(ev)=>this.handleChg("password",ev)} placeholder="管理员密码"/>
+                                </p>
+                                {   
+                                    error_msg?(
+                                        <p className="error">error_msg</p>
+                                        ):null
+                                }
+                                <p>
+                                    <button className="btn-login" onClick={this.do_login}>登录</button>
+                                </p>
+                            </div>
+                        </form>
                     </div>
                 </div>
            </div>
