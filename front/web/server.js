@@ -42,7 +42,11 @@ app.use(/\/zh|\/en/, function(req, res) {
 })
 
 app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-    res.send({success:1});
+    var url = req._parsedOriginalUrl.pathname;
+    url = url.substring(4,url.length)
+    httpRequest.get(url,req.query,function(data){
+        res.send(data);
+    });
 })
 app.post(/^\/api(\/[a-zA-Z+])+/,function(req,res){
     res.send({success:1});

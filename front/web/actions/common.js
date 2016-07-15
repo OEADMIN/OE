@@ -1,10 +1,13 @@
 import fetch from 'isomorphic-fetch';
-
+import queryString from 'query-string';
 const base_url = "";
 
 export function post_async(url,params,callback){
     let ajax_url = base_url+ url;
-    console.log(url,params);
+    let post_data = "";
+    if(params && typeof(params)!=="string"){
+        params=queryString.stringify(params);
+    }
     fetch(ajax_url,{
         method: "POST",
         credentials: 'include',//跨域访问
@@ -26,43 +29,30 @@ export function post_async(url,params,callback){
 }
 
 export function get_async(url,params,callback){
-    let ajax_url = '';
-    if(/^http/.test(url)){
-        ajax_url = url
-    }else{
-        ajax_url = base_url+ url;
-    }
-    
+    let ajax_url = base_url+ url;
     if(params){
         if(typeof(params)!=="string"){
             params=queryString.stringify(params);
         }
-        if(/\?/.test(ajax_url)){
-            ajax_url = ajax_url +"&"+params;
-        }else{
-            ajax_url = ajax_url +"?"+params;
+        ajax_url = ajax_url +"?"+params;
+    }
+   fetch(ajax_url,{
+        method: "GET",
+        credentials: 'include',//跨域访问
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
         }
-    }
-
-    return dispatch => {
-        return fetch(ajax_url,{
-                        method: "GET",
-                        credentials: 'include',//跨域访问
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                    })
-                    .then(response => response.json())
-                    .then(function(json){
-                        callback(json)
-                    })
-                    .catch(function(ex) {
-                        callback({
-                            s:0,
-                            m:ex.toString()
-                        })
-                    })
-    }
+    })
+    .then(response => response.json())
+    .then(function(json){
+        callback(json)
+    })
+    .catch(function(ex) {
+        callback({
+            s:0,
+            m:ex.toString()
+        })
+    })
 }
 
 export function getTimeByDate(data,cData){
