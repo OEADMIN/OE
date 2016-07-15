@@ -11,4 +11,5 @@
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
 
         <context:property-placeholder location="classpath:config/jdbc.properties"/>
+
 </beans>

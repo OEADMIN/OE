@@ -17,9 +17,8 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-
-    <mvc:annotation-driven/>
     <context:component-scan base-package="com.openexpense"/>
+    <mvc:annotation-driven/>
     <aop:aspectj-autoproxy/>
 
     <!-- 避免IE在ajax请求时，返回json出现下载 -->

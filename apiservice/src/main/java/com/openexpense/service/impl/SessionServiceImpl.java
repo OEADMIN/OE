@@ -1,6 +1,7 @@
 package com.openexpense.service.impl;
 
-import com.openexpense.exception.OeSessionException;
+import com.openexpense.exception.OeException;
+import com.openexpense.exception.OeExceptionType;
 import com.openexpense.model.Session;
 import com.openexpense.model.User;
 import com.openexpense.service.SessionService;
@@ -33,9 +34,9 @@ public class SessionServiceImpl implements SessionService{
     }
 
     /** @see com.openexpense.service.SessionService#getSession(String)  */
-    public Session getSession(String id) throws OeSessionException {
+    public Session getSession(String id) throws OeException {
         if (!sessionTable.containsKey(id)){
-            throw new OeSessionException(OeSessionException.Type.SESSION_NOT_FIND);
+            throw new OeException(OeExceptionType.SESSION_NOT_FIND);
         }
         Session session = sessionTable.get(id);
         session.setLastdate(new Date(System.currentTimeMillis()));

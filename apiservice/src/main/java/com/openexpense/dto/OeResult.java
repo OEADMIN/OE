@@ -1,5 +1,8 @@
 package com.openexpense.dto;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +79,12 @@ public class OeResult {
         this.code = code;
     }
 
+    public OeResult(OeResult.Type type,Object object){
+        this.type = type;
+        this.data = new ArrayList<>();
+        this.data.add(object);
+    }
+
     /**获取返回成功对象
      *@param result Object 成功后返回数据
      *@return OeResult 返回成功对象,{type:success,data:[{}]}
@@ -88,11 +97,20 @@ public class OeResult {
     }
 
     /**获取返回失败对象
-     *@param code Object 返回失败代码
+     *@param error Object 返回失败代码
      *@return OeResult 返回失败对象,{type:success,code:xxxx}
      */
-    public static OeResult getFailResult(String code){
-        return new OeResult(Type.fail,code);
+    public static OeResult getFailResult(OeError error){
+        return new OeResult(Type.fail,error);
+    }
+
+    public static OeResult getDataVaildResult(BindingResult bindingResult){
+        OeResult oeResult = new OeResult(Type.fail,"");
+        oeResult.data = new ArrayList<>();
+        for (FieldError error : bindingResult.getFieldErrors()) {
+            oeResult.data.add(new OeError(error));
+        }
+        return oeResult;
     }
 
     /**获取返回错误对象

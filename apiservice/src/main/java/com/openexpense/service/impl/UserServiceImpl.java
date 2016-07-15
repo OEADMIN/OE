@@ -1,7 +1,8 @@
 package com.openexpense.service.impl;
 
 import com.openexpense.dao.UserDao;
-import com.openexpense.exception.OeUserException;
+import com.openexpense.exception.OeException;
+import com.openexpense.exception.OeExceptionType;
 import com.openexpense.model.Company;
 import com.openexpense.model.User;
 import com.openexpense.service.UserService;
@@ -21,21 +22,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
-    /** @see com.openexpense.service.UserService#getUser(Company, String, Type)  */
+    /** @see com.openexpense.service.UserService#getUser(Company, String)  */
     @Override
-    public User getUser(Company company, String usercode,UserService.Type type) throws OeUserException {
+    public User getUser(Company company, String usercode) throws OeException {
         if (company == null){
-            throw new OeUserException(OeUserException.Type.USER_COMPANY_NULL);
+            throw new OeException(OeExceptionType.USER_COMPANY_NOT_EMPTY);
         }
         if(StringUtils.isEmpty(usercode)){
-            throw new OeUserException(OeUserException.Type.USER_CODE_NULL);
+            throw new OeException("usercode",OeExceptionType.NOT_EMPTY);
         }
         User user = userDao.queryOneCompanyUser(company.getCompany_id(),usercode);
         if (user == null){
-            throw new OeUserException(OeUserException.Type.USER_NOT_EXIST);
-        }
-        if(!user.getUser_state().equals(type.getName())){
-            throw new OeUserException(OeUserException.Type.USER_STATE_ERROR);
+            throw new OeException(OeExceptionType.USER_NOT_EXIST);
         }
         return user;
     }
