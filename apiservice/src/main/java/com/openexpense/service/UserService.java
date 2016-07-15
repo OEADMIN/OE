@@ -1,5 +1,6 @@
 package com.openexpense.service;
 
+import com.openexpense.dto.SignUp;
 import com.openexpense.exception.OeException;
 import com.openexpense.model.Company;
 import com.openexpense.model.User;
@@ -36,4 +37,6 @@ public interface UserService {
      * @see com.openexpense.model.Company
      */
     User getUser(Company company,String usercode) throws OeException;
+
+    User addUser(Company company, SignUp signUp) throws OeException;
 }

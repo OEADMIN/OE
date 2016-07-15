@@ -1,5 +1,8 @@
 package com.openexpense.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**用户实体类
@@ -7,26 +10,38 @@ import java.util.Date;
  *@author xjouyi@163.com
  *@version 0.1
  */
+@Table(name = "oe_user")
 public class User {
     /**用户id*/
+    @Id
+    @Column(name = "user_id")
     private String user_id;
     /**用户代码*/
+    @Column(name = "user_code")
     private String user_code;
     /**用户姓名*/
+    @Column(name = "user_name")
     private String user_name;
     /**用户密码*/
+    @Column(name = "user_pass")
     private String user_pass;
     /**用户email*/
+    @Column(name = "user_email")
     private String user_email;
     /**用户手机*/
+    @Column(name = "user_phone")
     private String user_phone;
     /**用户状态*/
+    @Column(name = "user_state")
     private String user_state;
     /**是否创始人*/
+    @Column(name = "is_founder")
     private boolean is_founder;
     /**所属公司*/
+    @Column(name = "company_id")
     private String company_id;
     /**创建时间*/
+    @Column(name = "create_date")
     private Date create_date;
 
     public String getUser_id() {

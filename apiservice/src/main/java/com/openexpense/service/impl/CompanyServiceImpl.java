@@ -1,8 +1,7 @@
 package com.openexpense.service.impl;
 
 import com.openexpense.dao.CompanyDao;
-import com.openexpense.exception.OeException;
-import com.openexpense.exception.OeExceptionType;
+import com.openexpense.dto.SignUp;
 import com.openexpense.model.Company;
 import com.openexpense.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,12 @@ public class CompanyServiceImpl implements CompanyService {
      * @see com.openexpense.service.CompanyService#getCompanyByDomain(String)
      */
     @Override
-    public Company getCompanyByDomain(String domain) throws OeException {
-        Company company = companyDao.queryByDomain(domain);
-        if (company == null){
-            throw new OeException(OeExceptionType.COMPANY_NOT_FIND);
-        }
-        return company;
+    public Company getCompanyByDomain(String domain) {
+        return companyDao.queryByDomain(domain);
+    }
+
+    @Override
+    public Company addCompany(SignUp signUp) {
+        return null;
     }
 }

@@ -6,11 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.LinkedHashMap;
@@ -28,6 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ContextConfiguration({"classpath*:config/spring.xml",
 "classpath*:/config/spring-mvc.xml",
 "classpath*:/config/spring-mybatis.xml"})
+@Transactional
+@Rollback
 public class TestHostController {
 
     @Autowired
@@ -83,8 +87,15 @@ public class TestHostController {
     }
 
     @Test
-    public void signUp() throws Exception {
-        String result = this.mockMvc.perform((put("/host/signup")))
+    public void testSignUp() throws Exception {
+        String result = this.mockMvc.perform((put("/host/signup"))
+                .param("cdomain","test.com")
+                .param("cname","单元测试")
+                .param("ucode","test")
+                .param("uname","admin")
+                .param("uemail","admin@test.com")
+                .param("upass","123")
+                )
                 .andReturn().getResponse().getContentAsString();
         System.out.println(result);
     }

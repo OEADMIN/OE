@@ -1,6 +1,6 @@
 package com.openexpense.service;
 
-import com.openexpense.exception.OeException;
+import com.openexpense.dto.SignUp;
 import com.openexpense.model.Company;
 
 /**企业服务
@@ -31,5 +31,11 @@ public interface CompanyService {
      * @param domain 企业域 如:openexpence.com
      * @return Company对象
      */
-    Company getCompanyByDomain(String domain) throws OeException;
+    Company getCompanyByDomain(String domain);
+
+    /**根据企业域和企业状态获取企业
+     * @param signUp SignUp 添加企业
+     * @return Company对象
+     */
+    Company addCompany(SignUp signUp);
 }

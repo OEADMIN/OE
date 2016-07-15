@@ -5,6 +5,7 @@ import com.openexpense.domain.UserDomain;
 import com.openexpense.dto.OeResult;
 import com.openexpense.dto.SignIn;
 import com.openexpense.dto.SignUp;
+import com.openexpense.exception.OeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -60,7 +61,7 @@ public class HostController {
      */
     @ResponseBody
     @RequestMapping(value = "/signup",method = RequestMethod.PUT)
-    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult){
+    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult) throws OeException {
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);
         }else{

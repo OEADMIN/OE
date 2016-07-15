@@ -15,7 +15,7 @@ public class SignUp {
 
     /**企业域*/
     @NotEmpty(message = OeExceptionType.NOT_EMPTY)
-    @Pattern(regexp = "^.*(?!@).*$ ",message = OeExceptionType.FORMART_ERROR)
+    @Pattern(regexp = "^.*(?!@).*$",message = OeExceptionType.FORMART_ERROR)
     @Size(max = 20,message = OeExceptionType.TOO_LONG)
     private String cdomain;
 
@@ -25,7 +25,7 @@ public class SignUp {
     private String cname;
 
     /**用户编码*/
-    @Pattern(regexp = "^.*(?!@).*$ ",message = OeExceptionType.FORMART_ERROR)
+    @Pattern(regexp = "^.*(?!@).*$",message = OeExceptionType.FORMART_ERROR)
     @NotEmpty(message = OeExceptionType.NOT_EMPTY)
     private String ucode;
 
