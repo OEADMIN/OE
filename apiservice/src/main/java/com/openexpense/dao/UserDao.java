@@ -7,13 +7,15 @@ import org.apache.ibatis.annotations.Param;
  *2016/07/06.
  *@author xjouyi@163.com
  */
-public interface UserDao {
+public interface UserDao extends BaseDao {
 
     /**根据用户id获取用户对象
      *@param userid string 用户id
      *@return User 对应用户
      */
     User queryOne(@Param("userid")String userid);
+    
+    User queryOneByEmail(@Param("user_email")String email);
 
     /**根据企业和用户代码获取用户对象
      *@param company_id string 用户id

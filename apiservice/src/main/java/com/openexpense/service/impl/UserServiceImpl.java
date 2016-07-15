@@ -1,13 +1,18 @@
 package com.openexpense.service.impl;
 
+import com.openexpense.common.UiUtil;
 import com.openexpense.dao.UserDao;
-import com.openexpense.exception.OeUserException;
+import com.openexpense.dto.SignUp;
+import com.openexpense.exception.OeException;
+import com.openexpense.exception.OeExceptionType;
 import com.openexpense.model.Company;
 import com.openexpense.model.User;
 import com.openexpense.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.UUID;
 
 
 /**用户服务实现
@@ -21,22 +26,30 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
-    /** @see com.openexpense.service.UserService#getUser(Company, String, Type)  */
+    /** @see com.openexpense.service.UserService#getUser(Company, String)  */
     @Override
-    public User getUser(Company company, String usercode,UserService.Type type) throws OeUserException {
+    public User getUser(Company company, String usercode) throws OeException {
         if (company == null){
-            throw new OeUserException(OeUserException.Type.USER_COMPANY_NULL);
+            throw new OeException(OeExceptionType.USER_COMPANY_NOT_EMPTY);
         }
         if(StringUtils.isEmpty(usercode)){
-            throw new OeUserException(OeUserException.Type.USER_CODE_NULL);
+            throw new OeException("usercode",OeExceptionType.NOT_EMPTY);
         }
-        User user = userDao.queryOneCompanyUser(company.getCompany_id(),usercode);
-        if (user == null){
-            throw new OeUserException(OeUserException.Type.USER_NOT_EXIST);
+        return userDao.queryOneCompanyUser(company.getCompany_id(),usercode);
+    }
+
+    @Override
+    public User addUser(Company company, SignUp signUp) throws OeException {
+        if(this.getUser(company,signUp.getUcode()) != null){
+            throw new OeException(OeExceptionType.USER_CODE_EXISTS);
         }
-        if(!user.getUser_state().equals(type.getName())){
-            throw new OeUserException(OeUserException.Type.USER_STATE_ERROR);
-        }
+        String id = UUID.randomUUID().toString();
+        User user = new User();
+        user.setUser_id(id);
+        user.setUser_code(signUp.getUcode());
+        user.setUser_name(signUp.getUname());
+        user.setUser_pass(UiUtil.getPassWord(id,signUp.getUpass()));
+        userDao.insert(user);
         return user;
     }
 }

@@ -1,6 +1,11 @@
 package com.openexpense.dto;
 
-import javax.validation.constraints.NotNull;
+import com.openexpense.exception.OeExceptionType;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**企业注册类型
  *2016/07/14.
@@ -9,17 +14,31 @@ import javax.validation.constraints.NotNull;
 public class SignUp {
 
     /**企业域*/
-    @NotNull(message = "xxxx")
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
+    @Pattern(regexp = "^.*(?!@).*$",message = OeExceptionType.FORMART_ERROR)
+    @Size(max = 20,message = OeExceptionType.TOO_LONG)
     private String cdomain;
+
     /**企业名*/
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
+    @Size(max = 20,message = OeExceptionType.TOO_LONG)
     private String cname;
+
     /**用户编码*/
+    @Pattern(regexp = "^.*(?!@).*$",message = OeExceptionType.FORMART_ERROR)
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
     private String ucode;
+
     /**用户姓名*/
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
     private String uname;
+
     /**用户Email*/
+    @Email(message = OeExceptionType.FORMART_ERROR)
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
     private String uemail;
     /**用户密码*/
+    @NotEmpty(message = OeExceptionType.NOT_EMPTY)
     private String upass;
 
     public String getCdomain() {

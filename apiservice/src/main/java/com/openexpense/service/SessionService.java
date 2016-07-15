@@ -1,6 +1,6 @@
 package com.openexpense.service;
 
-import com.openexpense.exception.OeSessionException;
+import com.openexpense.exception.OeException;
 import com.openexpense.model.Session;
 import com.openexpense.model.User;
 
@@ -22,7 +22,7 @@ public interface SessionService {
      * @return session 对象
      * @see com.openexpense.model.Session
      */
-    Session getSession(String id) throws OeSessionException;
+    Session getSession(String id) throws OeException;
 
 
     /** 根据sessionid删除session

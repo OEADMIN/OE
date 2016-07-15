@@ -3,11 +3,16 @@ package com.openexpense.controller;
 import com.openexpense.domain.HostDomain;
 import com.openexpense.domain.UserDomain;
 import com.openexpense.dto.OeResult;
+import com.openexpense.dto.SignIn;
 import com.openexpense.dto.SignUp;
+import com.openexpense.exception.OeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -27,13 +32,17 @@ public class HostController {
     HostDomain hostDomain;
 
     /**用户登录 /signin/{logincode}/{pass}
-    *@param logincode string 用户id
-    *@param pass string 密码
+    *@param signIn SignIn 登录信息
     *@return OeResult
     */
     @RequestMapping(value = "/signin",method = RequestMethod.GET)
-    public OeResult signIn(@RequestParam("logincode")String logincode, @RequestParam("pass")String pass){
-        return hostDomain.userSignin(logincode,pass);
+    @ResponseBody
+    public OeResult signIn(@Valid SignIn signIn, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return OeResult.getDataVaildResult(bindingResult);
+        }else{
+            return hostDomain.userSignin(signIn);
+        }
     }
 
     /**用户注销 /signout
@@ -41,6 +50,7 @@ public class HostController {
      * @return "OeResult
      */
     @RequestMapping(value = "/signout/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
     public OeResult signOut(@PathVariable("id") String id){
         return hostDomain.userSignOut(id);
     }
@@ -51,8 +61,12 @@ public class HostController {
      */
     @ResponseBody
     @RequestMapping(value = "/signup",method = RequestMethod.PUT)
-    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult){
-        return hostDomain.companySignUp(signUp);
+    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult) throws OeException {
+        if (bindingResult.hasErrors()){
+            return OeResult.getDataVaildResult(bindingResult);
+        }else{
+            return hostDomain.companySignUp(signUp);
+        }
     }
 
 }

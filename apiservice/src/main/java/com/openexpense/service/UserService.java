@@ -1,6 +1,7 @@
 package com.openexpense.service;
 
-import com.openexpense.exception.OeUserException;
+import com.openexpense.dto.SignUp;
+import com.openexpense.exception.OeException;
 import com.openexpense.model.Company;
 import com.openexpense.model.User;
 
@@ -32,9 +33,10 @@ public interface UserService {
     /**根据企业对象,用户代码,用户状态获取用户对象
      * @param company Company 企业对象
      * @param usercode String 用户代码
-     * @param type UserService.Type 用户状态
      * @return user 用户对象
      * @see com.openexpense.model.Company
      */
-    User getUser(Company company,String usercode,UserService.Type type) throws OeUserException;
+    User getUser(Company company,String usercode) throws OeException;
+
+    User addUser(Company company, SignUp signUp) throws OeException;
 }

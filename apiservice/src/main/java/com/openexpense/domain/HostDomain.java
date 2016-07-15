@@ -2,9 +2,10 @@ package com.openexpense.domain;
 
 import com.openexpense.common.UiUtil;
 import com.openexpense.dto.OeResult;
+import com.openexpense.dto.SignIn;
 import com.openexpense.dto.SignUp;
 import com.openexpense.exception.OeException;
-import com.openexpense.exception.OeHostException;
+import com.openexpense.exception.OeExceptionType;
 import com.openexpense.model.Company;
 import com.openexpense.model.Session;
 import com.openexpense.model.User;
@@ -13,7 +14,7 @@ import com.openexpense.service.SessionService;
 import com.openexpense.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**服务业务领域
  *2016/07/06.
@@ -35,27 +36,33 @@ public class HostDomain {
     SessionService sessionService;
 
     /**根据企业域获取企业对象
-     *@param logincode string 登录码(如:xjouyi@openexpense.com)
-     *@param pass string 密码
+     *@param signIn string 登录码(如:xjouyi@openexpense.com)
      *@return OeResult 返回登录信息
      * @see com.openexpense.dto.OeResult
      */
-    public OeResult userSignin(String logincode, String pass){
+    public OeResult userSignin(SignIn signIn){
         try {
-            if (StringUtils.isEmpty(logincode) || StringUtils.isEmpty(pass)){
-                throw new OeHostException(OeHostException.Type.HOST_USER_PASS_NULL);
-            }
-            String[] loginArray = logincode.split("@");
-            if (loginArray.length != 2){
-                throw new OeHostException(OeHostException.Type.HOST_CODE_FORMART_ERROR);
-            }
-            Company company = companyService.getCompanyByDomain(loginArray[1], CompanyService.Type.NORMAL);
-            User user = userService.getUser(company,loginArray[0],UserService.Type.NORMAL);
-            if (!user.getUser_pass().equals(UiUtil.getPassWord(user.getUser_id(),pass))){
-                throw new OeHostException(OeHostException.Type.HOST_PASS_ERROR);
-            }
-            String sessionid = sessionService.newSession(user);
+            String[] loginArray = signIn.getLogincode().split("@");
+            Company company = companyService.getCompanyByDomain(loginArray[1]);
+            User user = userService.getUser(company,loginArray[0]);
 
+            if (company == null){
+                throw new OeException(OeExceptionType.COMPANY_NOT_FIND);
+            }
+            if (user == null){
+                throw new OeException(OeExceptionType.USER_NOT_EXIST);
+            }
+            if (!company.getCompany_state().equals(CompanyService.Type.NORMAL.getName())){
+                throw new OeException(OeExceptionType.COMPANY_NOT_ACTIVE);
+            }
+            if (!user.getUser_state().equals(UserService.Type.NORMAL.getName())){
+                throw new OeException(OeExceptionType.USER_NOT_ACTIVE);
+            }
+            if (!user.getUser_pass().equals(UiUtil.getPassWord(user.getUser_id(),signIn.getPass()))){
+                throw new OeException(OeExceptionType.HOST_PASS_ERROR);
+            }
+
+            String sessionid = sessionService.newSession(user);
             return  OeResult.getSuccessResult(new Session(sessionid));
         } catch (OeException e) {
             return e.getResult();
@@ -72,14 +79,26 @@ public class HostDomain {
         return OeResult.getSuccessResult(null);
     }
 
-
-
     /**
      * 企业注册并登录
      * @param signUp SignUp 企业注册信息
      * @return
      */
-    public OeResult companySignUp(SignUp signUp){
-        return null;
+    @Transactional(rollbackFor = Exception.class)
+    public OeResult companySignUp(SignUp signUp) throws OeException {
+        try{
+            Company company = companyService.getCompanyByDomain(signUp.getCdomain());
+            if (company != null){
+                throw new OeException(OeExceptionType.COMPANY_DOMAIN_EXISTS);
+            }
+            company = companyService.addCompany(signUp);
+
+            User user = userService.addUser(company,signUp);
+
+            String sessionid = sessionService.newSession(user);
+            return  OeResult.getSuccessResult(new Session(sessionid));
+        }catch (OeException e){
+            return e.getResult();
+        }
     }
 }
