@@ -56,7 +56,12 @@ app.delete(/^\/api(\/[a-zA-Z+])+/,function(req,res){
     res.send({success:1});
 })
 app.put(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-    res.send({success:1});
+    var url = req._parsedUrl.pathname;
+    url = url.substring(4,url.length)
+    //res.send({data:req._parsedUrl})
+    httpRequest.put(url,req.query,function(data){
+        res.send(data);
+    });
 })
 /**
  * start server

@@ -2,58 +2,53 @@ import fetch from 'isomorphic-fetch';
 import queryString from 'query-string';
 const base_url = "";
 
-export function post_async(url,params,callback){
-    let ajax_url = base_url+ url;
-    let post_data = "";
-    if(params && typeof(params)!=="string"){
-        params=queryString.stringify(params);
+function async(type,url,params,callback){
+    let 
+        ajax_url = base_url+ url,
+        option = {
+            method: type,
+            credentials: 'include',//跨域访问
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        };
+    params=queryString.stringify(params);
+    if(type=="POST"){
+        option.body = params;
+    }else if(type == "GET" || type == "PUT"){
+        ajax_url = ajax_url +"?"+params;
+    }else if(type == "DELETE"){
+        option.body = params;
     }
-    fetch(ajax_url,{
-        method: "POST",
-        credentials: 'include',//跨域访问
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: params
-    })
-    .then(response => response.json())
-    .then(function(json){
-        callback(json)
-    })
-    .catch(function(ex) {
-        callback({
-            s:0,
-            m:ex.toString()
+
+    fetch(ajax_url,option)
+        .then(response => response.json())
+        .then(function(json){
+            callback(json)
         })
-    })
+        .catch(function(ex) {
+            callback({
+                s:0,
+                m:ex.toString()
+            })
+        })
+}
+export let Ajax = {
+    get:function(url,params,callback){
+        async("GET",url,params,callback);
+    },
+    post:function(url,params,callback){
+        async("POST",url,params,callback);
+    },
+    delete:function(url,params,callback){
+        async("DELETE",url,params,callback);
+    },
+    put:function(url,params,callback){
+        async("PUT",url,params,callback);
+    }
 }
 
-export function get_async(url,params,callback){
-    let ajax_url = base_url+ url;
-    if(params){
-        if(typeof(params)!=="string"){
-            params=queryString.stringify(params);
-        }
-        ajax_url = ajax_url +"?"+params;
-    }
-   fetch(ajax_url,{
-        method: "GET",
-        credentials: 'include',//跨域访问
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    })
-    .then(response => response.json())
-    .then(function(json){
-        callback(json)
-    })
-    .catch(function(ex) {
-        callback({
-            s:0,
-            m:ex.toString()
-        })
-    })
-}
+
 
 export function getTimeByDate(data,cData){
     if(data == "0000-00-00 00:00:00" && cData){
