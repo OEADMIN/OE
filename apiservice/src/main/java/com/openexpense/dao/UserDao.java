@@ -14,7 +14,7 @@ public interface UserDao extends BaseDao {
      *@return User 对应用户
      */
     User queryOne(@Param("userid")String userid);
-    
+
     User queryOneByEmail(@Param("user_email")String email);
 
     /**根据企业和用户代码获取用户对象

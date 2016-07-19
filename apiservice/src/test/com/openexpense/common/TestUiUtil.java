@@ -23,4 +23,12 @@ public class TestUiUtil {
     public void getPassWord(){
        assertEquals("3413A156EF0EF7021355D626C8C03FBF",UiUtil.getPassWord("xjouyi","123"));
     }
+
+    @Test
+    public void testDemo(){
+        for (int i =3;i<= 862;i++){
+            String ss = "=VLOOKUP(A"+i+",Sheet1!A1:D15,4,FALSE) \n";
+            System.out.println(ss);
+        }
+    }
 }
