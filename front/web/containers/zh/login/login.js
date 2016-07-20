@@ -2,7 +2,7 @@ import React from 'react';
 import {connect } from 'react-redux';
 import {pushPath } from 'redux-simple-router';
 import {Link } from 'react-router';
-import { Ajax} from '../../../actions/common';
+import { Ajax,Verificate} from '../../../actions/common';
 import './login.less';
 let Spa = React.createClass({
     getInitialState:function(){
@@ -40,16 +40,52 @@ let Spa = React.createClass({
     },
     do_registe:function(ev){
         let {cdomain,cname,ucode,uname,uemail,upass} = this.state;
+        let _this = this;
         ev.preventDefault();
         let params = {
             cdomain:cdomain,
             cname:cname,
             ucode:ucode,
             uemail:uemail,
-            upass:upass
+            upass:upass,
+            uname:uname
         }
+        let verifi = {
+            cdomain:{value:cdomain,text:"企业域不能为空"},
+            cname:{value:cname,text:"企业名不能为空"},
+            ucode:{value:ucode,text:"用户代码不能为空"},
+            uname:{value:uname,text:"用户姓名不能为空"},
+            uemail:{value:uemail,text:"用户邮箱不能为空",type:"email",regText:"邮箱格式有误"},
+            upass:{value:upass,text:"密码不能为空"}
+        }
+        let isRight = true;
+        let tem = {};
+        for (let i in verifi){
+            if(!verifi[i].value){
+                this.setState({error_msg_registe:verifi[i].text});
+                isRight = false;
+                return false;
+            }
+            if(verifi[i].type){
+                if(!Verificate[verifi[i].type](verifi[i].value)){
+                    this.setState({error_msg_registe:verifi[i].regText});
+                    isRight = false;
+                    return false;
+                }
+            }
+        }
+        if(!isRight){return;}
         Ajax.put('/api/host/signup',params,function(val){
-            console.log(val);
+            if(val.type=="success"){
+                _this.setState({
+                    error_msg_registe:"",
+                    email:params.uemail,
+                    upass:params.upass
+                })
+                _this.translate("login");
+            }else{
+                _this.setState({error_msg_registe:val.data[0].message})
+            }
 
         })
     },
@@ -123,7 +159,7 @@ let Spa = React.createClass({
                                     </p>
                                     {   
                                         error_msg_registe?(
-                                            <p className="error">error_msg_registe</p>
+                                            <p className="error">{error_msg_registe}</p>
                                             ):null
                                     }
                                     <p>

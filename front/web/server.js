@@ -42,9 +42,13 @@ app.use(/\/zh|\/en/, function(req, res) {
 })
 
 app.get(/^\/api(\/[a-zA-Z+])+/,function(req,res){
-    var url = req._parsedOriginalUrl.path;
+    var 
+        url = req._parsedOriginalUrl.path,
+        queryIndex = url.indexOf('?');
+    if(queryIndex>-1){
+        url = url.substring(0,queryIndex);
+    }
     url = url.substring(4,url.length)
-
     httpRequest.get(url,req.query,function(data){
         res.send(data);
     });
@@ -58,7 +62,6 @@ app.delete(/^\/api(\/[a-zA-Z+])+/,function(req,res){
 app.put(/^\/api(\/[a-zA-Z+])+/,function(req,res){
     var url = req._parsedUrl.pathname;
     url = url.substring(4,url.length)
-    //res.send({data:req._parsedUrl})
     httpRequest.put(url,req.query,function(data){
         res.send(data);
     });

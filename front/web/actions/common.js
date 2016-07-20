@@ -49,37 +49,53 @@ export let Ajax = {
 }
 
 
-
-export function getTimeByDate(data,cData){
-    if(data == "0000-00-00 00:00:00" && cData){
-        data = cData;
+function check(type,key){
+    var 
+        typeString = "",
+        reg;
+    switch(type){
+        case "email":
+            typeString = '^([a-zA-Z0-9_\\-\\.])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$';
+            break;
+        case 'mobile':
+            typeString = '^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$';
+            break;
+        case 'tel':
+            typeString = '^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$';
+            break;
+        case 'date':
+            //格式yyyy-mm-dd
+            typeString = '^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$';
+            break;
+        case 'QQ':
+            typeString = '^[1-9][0-9]{4,}$';
+            break;
+        case 'digital':
+            typeString ='^\\d\\d*$';
+            break;
     }
-    if(!data){
-        return null;
-    }
-    let now = new Date().getTime();
-    let time = new Date(Date.parse(data.replace(/-/g,"/"))).getTime();
-    let minutes = now - time;
-    
-    //计算出相差天数  
-    let days = Math.floor(minutes/(24*3600*1000))     
-    //计算出小时数       
-    let leave1 = minutes%(24*3600*1000)    //计算天数后剩余的毫秒数  
-    let hours = Math.floor(leave1/(3600*1000))  
-    //计算相差分钟数
-    let leave2 = leave1%(3600*1000)        //计算小时数后剩余的毫秒数  
-    let mins = Math.floor(leave2/(60*1000))  
-    var leave3=leave2%(60*1000)      //计算分钟数后剩余的毫秒数  
-    var seconds=Math.round(leave3/1000) 
-
-    hours = hours >0 ? hours+"小时前" : false;
-    mins  = mins >0 ? mins+"分钟前" : false;
-    
-    if(days>7){
-        days = data.split(' ')[0];
-    }else{
-        days  = days >0 ? days+"天前" : false;
-    }
-    return days|| hours || mins || "刚刚";
+    reg = new RegExp(typeString);
+    return reg.test(key);
 }
+
+export let Verificate = {
+    email:function(key){
+        return check("email",key);
+    },
+    mobile:function(key){
+        return check("mobile",key);
+    },
+    tel:function(key){
+        return check("tel",key);
+    },
+    date:function(key){
+        return check("date",key);
+    },
+    QQ:function(key){
+        return check("QQ",key);
+    },
+    digital:function(key){
+        return check("digital",key);
+    }
+} 
 
