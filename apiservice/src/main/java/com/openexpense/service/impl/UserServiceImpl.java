@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -49,6 +50,11 @@ public class UserServiceImpl implements UserService {
         user.setUser_code(signUp.getUcode());
         user.setUser_name(signUp.getUname());
         user.setUser_pass(UiUtil.getPassWord(id,signUp.getUpass()));
+        user.setUser_email(signUp.getUemail());
+        user.setUser_state(Type.NORMAL.getName());
+        user.setIs_founder(true);
+        user.setCompany_id(company.getCompany_id());
+        user.setCreate_date(new Date(System.currentTimeMillis()));
         userDao.insert(user);
         return user;
     }

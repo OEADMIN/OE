@@ -18,8 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.LinkedHashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 /**用户登录接口单元测试
  *2016/06/30.
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 "classpath*:/config/spring-mvc.xml",
 "classpath*:/config/spring-mybatis.xml"})
 @Transactional
-@Rollback
+@Rollback(value = true)
 public class TestHostController {
 
     @Autowired
@@ -47,7 +46,7 @@ public class TestHostController {
     }
 
     private OeResult siginIn(String logincode,String pass) throws Exception {
-        String result = this.mockMvc.perform((get("/host/signin"))
+        String result = this.mockMvc.perform((post("/host/signin"))
                 .param("logincode",logincode)
                 .param("pass",pass)
         )
@@ -88,7 +87,7 @@ public class TestHostController {
 
     @Test
     public void testSignUp() throws Exception {
-        String result = this.mockMvc.perform((put("/host/signup"))
+        String result = this.mockMvc.perform((post("/host/signup"))
                 .param("cdomain","test.com")
                 .param("cname","单元测试")
                 .param("ucode","test")

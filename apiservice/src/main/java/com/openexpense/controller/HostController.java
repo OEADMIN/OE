@@ -35,7 +35,7 @@ public class HostController {
     *@param signIn SignIn 登录信息
     *@return OeResult
     */
-    @RequestMapping(value = "/signin",method = RequestMethod.GET)
+    @RequestMapping(value = "/signin",method = RequestMethod.POST)
     @ResponseBody
     public OeResult signIn(@Valid SignIn signIn, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
@@ -60,7 +60,7 @@ public class HostController {
      * @return "OeResult
      */
     @ResponseBody
-    @RequestMapping(value = "/signup",method = RequestMethod.PUT)
+    @RequestMapping(value = "/signup",method = RequestMethod.POST)
     public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult) throws OeException {
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);

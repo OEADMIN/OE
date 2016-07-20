@@ -1,5 +1,8 @@
 package com.openexpense.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**企业实体类
@@ -7,17 +10,24 @@ import java.util.Date;
  *@author xjouyi@163.com
  *@version 0.1
  */
+@Table(name = "oe_company")
 public class Company {
 
     /**企业id*/
+    @Id
+    @Column(name = "company_id")
     private String company_id;
     /**企业名称*/
+    @Column(name = "company_name")
     private String company_name;
     /**企业域*/
+    @Column(name = "company_domain")
     private String company_domain;
     /**企业状态*/
+    @Column(name = "company_state")
     private String company_state;
     /**创建时间*/
+    @Column(name = "create_date")
     private Date create_date;
 
     public String getCompany_id() {

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
  *2016/07/06.
  *@author xjouyi@163.com
  */
-public interface CompanyDao {
+public interface CompanyDao extends BaseDao<Company> {
 
     /**根据企业域获取企业对象
      *@param domain string 企业域(openexpense.com)

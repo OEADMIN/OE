@@ -92,9 +92,7 @@ public class HostDomain {
                 throw new OeException(OeExceptionType.COMPANY_DOMAIN_EXISTS);
             }
             company = companyService.addCompany(signUp);
-
             User user = userService.addUser(company,signUp);
-
             String sessionid = sessionService.newSession(user);
             return  OeResult.getSuccessResult(new Session(sessionid));
         }catch (OeException e){
