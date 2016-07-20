@@ -71,8 +71,8 @@ public class TestHostController {
         oeResult = siginIn("xjouyi","");
         assertEquals("fail",oeResult.getType().getName());
 
-        oeResult =  siginIn("xjouyi@openexpense.com","1234");
-        assertEquals("fail",oeResult.getType().getName());
+        oeResult =  siginIn("xjouyi@openexpense.com","123");
+        assertEquals("success",oeResult.getType().getName());
     }
     /**用户注销测试
     */

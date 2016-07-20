@@ -1,7 +1,6 @@
 package com.openexpense.datacontrol;
 
 import com.openexpense.exception.OeException;
-import sun.jvm.hotspot.oops.ObjectHeap;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -180,7 +179,7 @@ public class EntityFieldUtil {
         }
     }
 
-    public String getFilterSql(List<ObjectHeap.ObjectFilter> filterList, List<ObjectField> listField) throws Exception {
+    public String getFilterSql(List<ObjectFilter> filterList, List<ObjectField> listField) throws Exception {
         StringBuilder sbWhere = new StringBuilder();
 
         for(int iFilter = 0; iFilter < filterList.size(); ++iFilter) {
