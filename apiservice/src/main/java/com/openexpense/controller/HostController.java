@@ -7,12 +7,9 @@ import com.openexpense.dto.SignIn;
 import com.openexpense.dto.SignUp;
 import com.openexpense.exception.OeException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,7 +18,7 @@ import javax.validation.Valid;
  *@author xjouyi@163.com
  *@version 0.1
  */
-@Controller
+@RestController
 @RequestMapping("/host")
 public class HostController {
 
@@ -36,7 +33,7 @@ public class HostController {
     *@return OeResult
     */
     @RequestMapping(value = "/signin",method = RequestMethod.POST)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     public OeResult signIn(@Valid SignIn signIn, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);
@@ -50,7 +47,7 @@ public class HostController {
      * @return "OeResult
      */
     @RequestMapping(value = "/signout/{id}",method = RequestMethod.DELETE)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     public OeResult signOut(@PathVariable("id") String id){
         return hostDomain.userSignOut(id);
     }
@@ -59,8 +56,8 @@ public class HostController {
      * @param signUp SignUp 注册内容
      * @return "OeResult
      */
-    @ResponseBody
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
     public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult) throws OeException {
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);
