@@ -26,7 +26,7 @@ public class SessionServiceImpl implements SessionService{
         Session session = new Session();
         String id = UUID.randomUUID().toString();
         session.setSessionid(id);
-        session.setUserid(user.getUser_id());
+        session.setUser(user);
         session.setCompanyid(user.getCompany_id());
         session.setLastdate(new Date(System.currentTimeMillis()));
         sessionTable.put(id,session);

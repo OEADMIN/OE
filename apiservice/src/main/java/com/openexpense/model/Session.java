@@ -10,8 +10,8 @@ import java.util.Date;
 public class Session {
     /**sessionid*/
     private String sessionid;
-    /**用户id*/
-    private String userid;
+    /**用户对象*/
+    private User user;
     /**用户所属公司*/
     private String companyid;
     /**最后操作时间*/
@@ -22,14 +22,6 @@ public class Session {
 
     public Session(String sessionid){
         this.sessionid = sessionid;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
     }
 
     public String getCompanyid() {
@@ -54,5 +46,13 @@ public class Session {
 
     public void setSessionid(String sessionid) {
         this.sessionid = sessionid;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.openexpense.dao.MenuDao">
+    <select id="getMenu" resultType="com.openexpense.model.Menu">
+        SELECT * FROM oe_menu WHERE menu_state = #{state} ORDER BY menu_code,menu_order
+    </select>
+    <select id="getMenuByUser" resultType="com.openexpense.model.Menu">
+select oe_menu.* from oe_menu
+inner join oe_role_menu on oe_menu.menu_code = oe_role_menu.menu_code
+inner join oe_user_role on oe_role_menu.role_code = oe_user_role.role_code
+inner join oe_user on oe_user_role.user_id = oe_user.user_id
+where oe_user.user_id = #{userid}
+    </select>
+</mapper>

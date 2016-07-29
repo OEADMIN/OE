@@ -1,7 +1,6 @@
 package com.openexpense.domain;
 
 import com.openexpense.common.UiUtil;
-import com.openexpense.dto.OeResult;
 import com.openexpense.dto.SignIn;
 import com.openexpense.dto.SignUp;
 import com.openexpense.exception.OeException;
@@ -40,33 +39,29 @@ public class HostDomain {
      *@return OeResult 返回登录信息
      * @see com.openexpense.dto.OeResult
      */
-    public OeResult userSignin(SignIn signIn){
-        try {
-            String[] loginArray = signIn.getLogincode().split("@");
-            Company company = companyService.getCompanyByDomain(loginArray[1]);
-            User user = userService.getUser(company,loginArray[0]);
+    public Session userSignin(SignIn signIn) throws OeException {
+        String[] loginArray = signIn.getLogincode().split("@");
+        Company company = companyService.getCompanyByDomain(loginArray[1]);
+        User user = userService.getUser(company,loginArray[0]);
 
-            if (company == null){
-                throw new OeException(OeExceptionType.COMPANY_NOT_FIND);
-            }
-            if (user == null){
-                throw new OeException(OeExceptionType.USER_NOT_EXIST);
-            }
-            if (!company.getCompany_state().equals(CompanyService.Type.NORMAL.getName())){
-                throw new OeException(OeExceptionType.COMPANY_NOT_ACTIVE);
-            }
-            if (!user.getUser_state().equals(UserService.Type.NORMAL.getName())){
-                throw new OeException(OeExceptionType.USER_NOT_ACTIVE);
-            }
-            if (!user.getUser_pass().equals(UiUtil.getPassWord(user.getUser_id(),signIn.getPass()))){
-                throw new OeException(OeExceptionType.HOST_PASS_ERROR);
-            }
-
-            String sessionid = sessionService.newSession(user);
-            return  OeResult.getSuccessResult(new Session(sessionid));
-        } catch (OeException e) {
-            return e.getResult();
+        if (company == null){
+            throw new OeException(OeExceptionType.COMPANY_NOT_FIND);
         }
+        if (user == null){
+            throw new OeException(OeExceptionType.USER_NOT_EXIST);
+        }
+        if (!company.getCompany_state().equals(CompanyService.Type.NORMAL.getName())){
+            throw new OeException(OeExceptionType.COMPANY_NOT_ACTIVE);
+        }
+        if (!user.getUser_state().equals(UserService.Type.NORMAL.getName())){
+            throw new OeException(OeExceptionType.USER_NOT_ACTIVE);
+        }
+        if (!user.getUser_pass().equals(UiUtil.getPassWord(user.getUser_id(),signIn.getPass()))){
+            throw new OeException(OeExceptionType.HOST_PASS_ERROR);
+        }
+
+        String sessionid = sessionService.newSession(user);
+        return  new Session(sessionid);
     }
 
     /**用户注销
@@ -74,9 +69,8 @@ public class HostDomain {
      * @return  OeResult 返回注销是否成功
      * @see com.openexpense.dto.OeResult
      */
-    public OeResult userSignOut(String sessionid){
+    public void userSignOut(String sessionid){
         sessionService.removeSession(sessionid);
-        return OeResult.getSuccessResult(null);
     }
 
     /**
@@ -85,18 +79,14 @@ public class HostDomain {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public OeResult companySignUp(SignUp signUp) throws OeException {
-        try{
-            Company company = companyService.getCompanyByDomain(signUp.getCdomain());
-            if (company != null){
-                throw new OeException(OeExceptionType.COMPANY_DOMAIN_EXISTS);
-            }
-            company = companyService.addCompany(signUp);
-            User user = userService.addUser(company,signUp);
-            String sessionid = sessionService.newSession(user);
-            return  OeResult.getSuccessResult(new Session(sessionid));
-        }catch (OeException e){
-            return e.getResult();
+    public Session companySignUp(SignUp signUp) throws OeException {
+        Company company = companyService.getCompanyByDomain(signUp.getCdomain());
+        if (company != null){
+            throw new OeException(OeExceptionType.COMPANY_DOMAIN_EXISTS);
         }
+        company = companyService.addCompany(signUp);
+        User user = userService.addUser(company,signUp);
+        String sessionid = sessionService.newSession(user);
+        return  new Session(sessionid);
     }
 }

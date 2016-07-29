@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         return userDao.queryOneCompanyUser(company.getCompany_id(),usercode);
     }
 
+
     @Override
     public User addUser(Company company, SignUp signUp) throws OeException {
         if(this.getUser(company,signUp.getUcode()) != null){

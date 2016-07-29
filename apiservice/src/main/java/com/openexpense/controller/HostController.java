@@ -38,7 +38,12 @@ public class HostController {
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);
         }else{
-            return hostDomain.userSignin(signIn);
+            try {
+                return OeResult.getSuccessResult(hostDomain.userSignin(signIn));
+            } catch (OeException e) {
+                e.printStackTrace();
+                return e.getResult();
+            }
         }
     }
 
@@ -49,7 +54,8 @@ public class HostController {
     @RequestMapping(value = "/signout/{id}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public OeResult signOut(@PathVariable("id") String id){
-        return hostDomain.userSignOut(id);
+        hostDomain.userSignOut(id);
+        return OeResult.getSuccessResult(null);
     }
 
     /**企业注册 /signup
@@ -58,11 +64,16 @@ public class HostController {
      */
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult) throws OeException {
+    public OeResult singUp(@Valid SignUp signUp,BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return OeResult.getDataVaildResult(bindingResult);
         }else{
-            return hostDomain.companySignUp(signUp);
+            try {
+                return OeResult.getSuccessResult(hostDomain.companySignUp(signUp));
+            } catch (OeException e) {
+                e.printStackTrace();
+                return e.getResult();
+            }
         }
     }
 
