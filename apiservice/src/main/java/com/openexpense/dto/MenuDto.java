@@ -2,8 +2,10 @@ package com.openexpense.dto;
 
 import java.util.List;
 
-/**
- * Created by jinyi on 16/7/29.
+
+/**菜单DTO
+ *2016/07/06.
+ *@author xjouyi@163.com
  */
 public class MenuDto {
     private String code;

@@ -6,6 +6,12 @@ import com.openexpense.model.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
+/**对象转换模块
+ *2016/08/02.
+ *@author xjouyi@163.com
+ *@version 0.1
+ */
+
 public final class ConvartUtils {
     private static List<MenuDto> getChildMenu(String menuParent,List<Menu> sourceList){
         if (StringUtils.isEmpty(menuParent)){
@@ -22,6 +28,10 @@ public final class ConvartUtils {
         return list.size() > 0 ? list:null;
     }
 
+    /**菜单对象
+     *@param menus List<Menu> 数据库菜单项目
+     *@return List<MenuDto>
+     */
     public static List<MenuDto> toMenu(List<Menu> menus){
         List<MenuDto> list = new ArrayList<>();
         for (Menu menu : menus) {

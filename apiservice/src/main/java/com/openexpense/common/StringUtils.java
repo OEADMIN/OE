@@ -1,7 +1,10 @@
 package com.openexpense.common;
 
-/**
- * Created by jinyi on 16/7/15.
+
+/**字符串操作对象
+ *2016/08/02.
+ *@author xjouyi@163.com
+ *@version 0.1
  */
 public class StringUtils {
     public static boolean isEmpty(String str) {
